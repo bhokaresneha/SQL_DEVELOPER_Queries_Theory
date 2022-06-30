@@ -1,0 +1,91 @@
+constraints are used to apply business rules in database tables.
+constraints are available in SQL are-
+					primary key
+							-it defines a column or combination of column which uniquely identifies each rows in the table. 
+not null values are always stored.
+					foreign key
+							-the constraint identifies any column referencing the primary key to the another table. it establish the relationship between two tables for a column to define as a foreign key , it should be define as a primary key in the table which it is refering.
+							one or more column can be defined as a foreign key .	
+					unique key    
+						 	- this constraints insures that a column or group of column in each row have a distinct value.a column can have null value but values can't br duplicate
+					not null
+							-  this constraints insures all rows in a table contains a specific value for the colunm which is specified as not null.
+					check
+							- this constraint defines all rows must satisfy this rule it can be applied on single or group of columns 
+constraints can be define in two ways
+
+1] column level defination
+		-the constraint can be specifies immediately after columns defination
+
+		eg:
+
+create table cust(
+                       empid number(20) CONSTRAINT pk_id primary key,
+                       fname varchar(255),
+                       lname varchar(255),
+                       address varchar(255),
+                       phoneno number(10),
+                       salary number(20),
+                       gender varchar(25)
+		)
+
+2] table level defination
+		the constraint can be specifies  after all the columns are define
+
+		eg:
+create table empinfo(
+                       empid number(20),
+                       fname varchar(255),
+                       lname varchar(255),
+                       address varchar(255),
+                       phoneno number(10),
+                       salary number(20),
+                       gender varchar(25),
+		CONSTRAINT supplier_pk PRIMARY KEY (empid)
+                    );
+
+Alter 
+	-statement use to modify the structure of table by modifing the definations of columns
+	alter command used to perform following operations
+		-add
+				eg:
+					alter table employenfo add constraint unk_pk unique (city) 
+		- drop
+				eg:(drop column)
+					alter table employenfo drop column city
+				eg:(drop constraint)
+					alter table employenfo drop constraint unk_pk
+		-modify
+				eg:
+					alter table employenfo add city number(20)if we want city as varchar
+					alter table employenfo modify city varchar(20)
+		on table column
+
+Add & drop constraints
+			
+		syntax=	alter table tablname add columnname and defination	
+		-eg
+			alter table empinfo add city varchar(20)
+
+	change the name of column/rename the column
+	eg:
+		alter table empinfo rename column city to location
+
+
+rename=>
+       change the table name 
+	eg:
+		rename column employenfo to empinfo	
+
+UPDATE =>
+EG:
+UPDATE STUD
+ SET ADDRESS="PUNE" ;
+====================================================================================================
+CREATING NEW USER FOR ORACLE
+	eg:
+		create user ciit identified by ciit123 
+
+grant create session to ciit
+grant connect to ciit( to gives the purission to the ciit user/new user)
+GRANT ALL PRIVILEGE TO ciit IDENTIFIED BY ciit123  ;(give permission to ciit user)

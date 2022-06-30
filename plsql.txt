@@ -1,0 +1,188 @@
+stored proceducre=> procedure does not return any value
+
+			saved frequently used queries and compiled code is stored.
+
+syntax=> create or replace procedure sdemp(a number,b number)
+		as declare
+		c number;
+		begin
+		c:=a+b;
+		dbms_output.put_lin+
+e('add='11 6);
+		end;
+
+
+execute=>exec sdemp()
+
+
+insert=>
+	create or replace procedure student(a number,b number)
+		as declare
+			begin		
+	insert into student values(a,b);
+	end;
+	
+
+execute=>exec student(10,20)
+
+
+
+fuction=> must retuen value
+		used in the select statement
+
+	create or replace function fday(a number)
+	return varchar
+	as
+	declare
+	b number;			
+	begin
+	b:=a*a;
+	return 'save='11 6;
+	end;
+
+
+select fday(10) from dual
+
+
+trigger=>		
+	create or replace trigger str after insert on stud
+				  for each row 
+			begin
+			dbms_output.put_line("after insert trigger is called")
+			end;
+
+execute=>
+insert into stud values(1,'abc','asas')
+
+
+
+for backup
+************************new record insert******************************************************
+		create or replace trigger str 
+			after insert on stud
+				  for each row 
+			begin
+			dbms_output.put_line(":new.rno||''||" :new.name||''||:new.address);
+			end;
+
+******************************old and new record************************************************
+		create or replace trigger str 
+			after insert on stud
+				  for each row 
+			begin
+			dbms_output.put_line(":old.rno||''||" :old.name||''||:old.address);
+				
+			dbms_output.put_line(":new.rno||''||" :new.name||''||:new.address);
+			end;
+
+
+
+***************************************************************************************************
+union combine row and join combine columns 
+****************************************************************************************************
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

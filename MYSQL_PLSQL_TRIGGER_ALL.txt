@@ -1,0 +1,852 @@
+                                             CREATE QUERIES 
+
+-------------------creating table with column constraint-----------------
+create table cust(
+                       empid number(20) constraint pk_id primary key,
+                       fname varchar(255),
+                       lname varchar(255),
+                       address varchar(255),
+                       phoneno number(10),
+                       salary number(20),
+                       gender varchar(25))
+
+--------------------creating table with table constraint-------------------
+create table empinfo(
+                       empid number(20),
+                       fname varchar(255),
+                       lname varchar(255),
+                       address varchar(255),
+                       phoneno number(10),
+                       salary number(20),
+                       gender varchar(25),
+CONSTRAINT supplier_pk PRIMARY KEY (empid)
+                       );
+-------------------inserting record in table---------
+insert into cust 
+values(1,'sneha','bhokare','baramati',1234567890,102030,'female')
+insert into empinfo 
+values(3,'sneha','ghadage','sdashivnagar',1234567890,102030,'female')
+insert into empinfo 
+values(2,'chaitanya','ghadage','sdashivnagar',1234552650,102030,'male')
+
+
+------------------description of table-----------------------------------
+desc empinfo
+
+-----------------display all tables -------------------------------------------------
+select * from tab
+
+-----------update info/ record-------------------------------------------------
+update empinfo set fname='sakshi' where empid=2
+
+---------deleting table rows/only data/records -----------------------------
+delete empinfo
+
+----------droping whole table/deleting table----------------------
+drop  table customers
+
+-----------------------------------------------------------------------------------------
+
+*******************BASIC QUERIES*******************
+1.Retrive the entire contents of EMP table.
+=>   select * from hr.employees
+where department_id=10
+   
+-----------------------------------------------------------------------------------------
+2.Print the name of Employees.
+=>   select first_name 
+     from hr.employees
+-----------------------------------------------------------------------------------------
+3.Retrive  the list of names and jobs of employees.
+=>   select * from hr.jobs
+   =>   select e.first_name,j.job_title
+      from hr.employees e join
+      hr.jobs j on
+      e.job_id=j.job_id
+
+-----------------------------------------------------------------------------------------
+4.List the various departments available from dept table.
+=>  select department_name 
+    from hr.departments
+-----------------------------------------------------------------------------------------
+5.List  name of employees whose job is Manager.
+=>   select first_name ,job_id 
+     from hr.employees
+    where job_id like '___MAN%'
+-----------------------------------------------------------------------------------------
+6.List name of employee having salary greater than equal to 3000.
+=> select first_name,salary
+  from hr.employees 
+  where salary >=3000
+----------------------------------------------------------------------------------------- 
+7.List all employees having ‘A’ as second letter in their names.
+=> select first_name
+   from hr.employees
+   where first_name like '_a%'
+-----------------------------------------------------------------------------------------
+8.List the number of default tables in oracle.
+-----------------------------------------------------------------------------------------
+9.Show the information of the Department table in desc order.
+select * from hr.departments order by department_id desc; 
+-----------------------------------------------------------------------------------------
+10.Display the contents of the column Empno, Ename as Employee Name and Sal from 
+the Emp table.
+=> select employee_id "Employee_Name" , first_name "sal"
+  from hr.employees
+-----------------------------------------------------------------------------------------11.List the Employee Number, Name, Hiredate and Job Title of the Employees in 
+the Department 10.
+=> select e.employee_id,e.first_name,e.hire_date,j.job_title
+   from hr.employees e join
+   hr.jobs j on
+   e.job_id= j.job_id
+   where department_id=10
+-----------------------------------------------------------------------------------------
+12.Display the details of those Employees who earn a monthly Salary of more than 
+2000.
+=> select * from hr.employees where salary>2000
+-----------------------------------------------------------------------------------------
+13.Display the names of all Employees from Department 10 and 20 whose name start 
+with “A” and ends with “B”.
+=>select  * from hr.employees
+select first_name from hr.employees
+where department_id in(10,20) and first_name like 'P%t'
+-----------------------------------------------------------------------------------------
+14.Display
+
+ the details of the employees who have joined on 21-DEC-1990.
+=>select * from hr.employees where hire_date='17-jun-1987'
+-----------------------------------------------------------------------------------------------------------------------
+15.Display
+
+ the Employee Code, Name, Job & Annual Salary for all Employees 
+belonging to Department Number 10.
+=> select e.employee_id,j.job_title,e.salary*12 "annual sal" 
+ from hr.employees e join
+ hr.jobs j on
+ e.job_id=j.job_id
+ where department_id=10
+-----------------------------------------------------------------------------------------
+16.Display the details of the Employees who earn an Annual salary of more than 
+25000. Sort the records in the descending
+   order of Salary.
+=>  select * from hr.employees
+   where salary*12>25000
+   order by salary desc
+-----------------------------------------------------------------------------------------
+17.Display the names of Employees whose names contain the character “F”.
+=>   select first_name from hr.employees where first_name like'%A%'
+-----------------------------------------------------------------------------------------
+18.Display the location as “Location” and names of all the departments as 
+“Department Names”.
+=>   select * from hr.locations
+   select * from hr.departments
+=>select 
+l.street_address"Location",d.department_name"Department_Names"
+from hr.locations l join
+hr.departments d on
+d.location_id=l.location_id
+-----------------------------------------------------------------------------------------
+19.Display the Names and Numbers of all Departments in the descending order of the
+ Department Names.
+=> select department_name ,department_id 
+    from hr.departments 
+    order by department_name desc
+--------------------------------------------------------------------------------------------------------------------------
+20.Display the Name, Employee Number, Designation and Salary of those Employees 
+who earn a monthly salary of not less
+   than 1000 and not more than 2000.
+=>
+select e.first_name,e.employee_id,d.department_name,e.salary 
+from hr.employees e join
+hr.departments d on
+e.department_id=d.department_id
+where salary>2000 and salary<8000
+-----------------------------------------------------------------------------------------
+21.Find out the Bonus (Bonus 1.1% of Annual Salary) that every person will 
+receive at the end of the year.
+=>select salary ,salary*12"yearly sal",salary*12*1.1"with_bonus"
+from hr.employees
+-----------------------------------------------------------------------------------------
+22.Display the Name, Job and Dept No. of all the Employees who either work in 
+Department 30 or in Department 40.
+=>     select * from hr.employees
+       select * from hr.jobs
+
+=> select e.first_name,j.job_title,e.department_id 
+   from hr.employees e join
+   hr.jobs j on
+   e.job_id=j.job_id
+   where department_id=30 or department_id=40
+-----------------------------------------------------------------------------------------
+23.Display the uniqic MGR code in MGR column.
+=> select distinct manager_id from hr.employees 
+-----------------------------------------------------------------------------------------
+24.Display the Employee Number, Name for Clerks and Managers who’s Salary is more 
+than 1500.
+=>       select * from hr.jobs
+=> select employee_id ,job_id,salary
+  from hr.employees 
+  where job_id like '%CLERK%' or job_id like'___MGR' and salary>150
+------------------------------------------------------------------------------------------------------------------------------
+25.Display the Name, Annual Salary and Commission as “Commission Earned” of all 
+employees whose monthly salary is
+   greater than their Commission.
+=> select * from hr.employees
+=>select first_name,salary*12"annual_salary" 
+,commission_pct"commission_earned"
+from hr.employees
+where salary>commission_pct
+-----------------------------------------------------------------------------------------
+26.Display the Name and Job of sales executives or managers whose names end with 
+the letter ‘S’.
+ => select * from hr.jobs
+=>  select first_name,last_name,job_id
+     from hr.employees
+     where job_id like '__MGR' or job_id like '___MAN' and last_name 
+     like '%n' 
+
+
+-----------------------------------------------------------------------------------------
+27.Display all the Names of the Employees whose Salary is either more than 1000 
+but not more than 2200.
+=>select first_name ,salary from hr.employees 
+   where salary>1000 and salary<2200
+-----------------------------------------------------------------------------------------
+28.Select Name & Salary of employees who are clerks.
+=> select first_name,job_id,salary
+  from hr.employees where job_id like '___CLERK'
+-----------------------------------------------------------------------------------------
+29.List the Employees whose names start with ‘B’ or ‘M’
+=>  select first_name from hr.employees
+   where first_name like'B%' or first_name like 'M%'
+-----------------------------------------------------------------------------------------
+30.Display different types of positions available in the Company.
+=> select job_title from hr.jobs
+  group by job_title
+
+-----------------------------------------------------------------------------------------
+31.Give a list of Employees sorted in alphabetic order of Names.
+
+=>select first_name from hr.employees
+order by first_name asc
+-----------------------------------------------------------------------------------------
+32.List the Employee Number and the Name of the President.
+=>select *from hr.jobs
+=> select e.employee_id ,e.first_name,j.job_title
+ from hr.employees e join
+ hr.jobs j on
+ e.job_id=j.job_id
+ where job_title='President'
+-----------------------------------------------------------------------------------------
+33.Display Names of employees whose job is either Analyst or Salesman.
+=> select *from hr.jobs
+    select e.first_name,j.job_title 
+    from hr.employees e join
+    hr.jobs j on
+     e.job_id=j.job_id
+     where job_title='Accountant' or job_title='Stock Manager'
+-----------------------------------------------------------------------------------------
+34.Write a query, which concatenates the Emp No, Name and Mgr Code. Display 
+output with spaces in the columns.
+=> select * from hr.employees
+=> select employee_id||'  '|| first_name ||'   '|| manager_id 
+   from hr.employees
+-----------------------------------------------------------------------------------------
+35.Concatinate all the collumns of dept table and seperated by ||.
+ => select * from hr.departments
+  =>  select 
+department_id||'||'||department_name||'||'||manager_id||'||'||location_id
+
+
+    from hr.departments
+-----------------------------------------------------------------------------------------
+36.Display column headings as Emp#, Employee, Designation and Start Date.
+=>  select * from hr.employees
+=>  select employee_id"Emp#",first_name"Employee",job_id "Designation", hire_date "start date" from hr.employees
+---------------------------------------------------------------------------------------------------------------------------------
+37.Create
+
+ a query to display all the data from the EMP table, separate each 
+column by a comma.
+=>select employee_id||','||first_name||','||last_name||','||hire_date||','||department_id
+    from hr.employees
+-----------------------------------------------------------------------------------------
+38.Create query to display the Employee Name and Department Number for empno 7566.
+=> select * from hr.employees 
+=> select employee_id, first_name,department_id 
+  from hr.employees  where employee_id=110
+-----------------------------------------------------------------------------------------
+39.Display the Employee Name, Job, and Start Date of Employees hired from February
+ 1981 to May 1981.
+ =>   select first_name,job_id,hire_date
+     from hr.employees where hire_date BETWEEN TO_DATE('Feb-1998','MON-YYYY') AND 
+TO_DATE('May-1999','MON-YYYY')
+
+
+-----------------------------------------------------------------------------------------
+
+  
+40.Display the Name and Hiredate of every Employee who was hired in 
+1982.
+=> select first_name,hire_date
+   from hr.employees
+   where to_char(hire_date,'yyyy')=1990
+-----------------------------------------------------------------------------------------
+41.Display the Name and Title of the Employee who do not have a manager.
+=> select e.first_name,j.job_title
+ from hr.employees e join
+ hr.jobs j on
+ e.job_id=j.job_id
+ where e.manager_id is  null
+-----------------------------------------------------------------------------------------
+42.Display the Name, Salary and Commission for all Employees who earn 
+Commission. Sort data in descending order of  Salary and Commission.
+
+=>select first_name,salary,commission_pct
+from hr.employees
+where commission_pct is not null
+order by salary desc
+-----------------------------------------------------------------------------------------
+
+43.Display the Names of all Employees with the third letter of their 
+Name as an “A”.
+=> select first_name 
+   from hr.employees
+   where first_name like'__a%'
+-----------------------------------------------------------------------------------------
+44.Display the name of all Employees that have two Ls in the name and 
+are in department 30 or their manager is 7782.
+=> select First_name
+   from hr.employees
+   where first_name like '%l%l%'and department_id=30 or Manager_id=101
+----------------------------------------------------------------------------------------------------------------------------------
+45.Display Name, Job & Sal for all Emp whose job is Clerk or Analyst
+ and their Sal is not equal to 1000, 3000 & 5000.
+=> select first_name,job_id,salary
+   from hr.employees
+   where job_id like'%CLERK%'and salary not in(1000,3000,5000)
+-----------------------------------------------------------------------------------------
+46.Display the Name, Sal & Comm for all Employees whose Comm amount 
+is greater than their Sal increased by 10%.
+=>select first_name,salary,salary *0.10 "increased" , salary+salary 
+*0.10"increasedB",commission_pct
+  from hr.employees
+ where commission_pct>salary*0.10+salary
+-----------------------------------------------------------------------------------------
+
+47.Display Employee Number, Name, Gross Salary (Bonus + Salary*12 + 
+Commission) for all those Employees who belong  to Department Number 20 or 30 in the ascending order of Employee 
+Numbers.
+
+=> select employee_id,first_name,salary *0.10 "bonus" , salary 
+*12"yearly",commission_pct,salary *0.10+salary 
+*12+commission_pct"GrossSalary"
+   from hr.employees
+   where department_id=80 or department_id=30
+   order by employee_id asc
+-----------------------------------------------------------------------------------------
+
+49.change the date format to 31st Jan,2013.
+select to_char(sysdate,'dd mon,yyyy')from dual
+-----------------------------------------------------------------------------------------
+50. Select the employees who are hired  between 1900 to 2000.
+=> select hire_date 
+   from hr.employees
+   where to_char(hire_date,'yyyy') between 1900 and 2000
+
+************************inner query************************************************
+display info of all the dept in which maximum salary is greater than 10k
+=>
+select * from hr.departments
+where department_id in
+(
+select department_id from hr.employees
+group by department_id
+having max(salary)>10000 
+)
+-----------------------------------------------------------------------------------------
+disply  details of department managed by alexender
+=>
+select * from hr.departments
+where manager_id in(
+select employee_id from hr.employees
+where first_name='Alexander'
+)
+-----------------------------------------------------------------------------------------
+display city of employee whose employee id 105
+=>
+select city from hr.locations 
+where location_id=(select location_id from hr.departments
+where department_id=( select department_id from hr.employees
+where employee_id=105))
+-----------------------------------------------------------------------------------------
+display detail of current job of employees who work as it programmer in the past
+=>
+select * from hr.jobs
+where job_id in(select job_id from hr.employees
+where employee_id in( select employee_id from hr.job_history
+where  job_id='IT_PROG'))
+-----------------------------------------------------------------------------------------
+display job in which employee join in 1992
+-----------------------------------------------------------------------------------------Display emp who did not do any job in the past
+
+select * from hr.employees
+select * from hr.job_history
+=>
+select * from hr.employees
+where employee_id not in(
+select employee_id from hr.job_history
+)
+-----------------------------------------------------------------------------------------
+display  job title and avg salary for emp who did the job in the past
+=>
+select  j.job_title,avg(e.salary)
+from  hr.employees e join
+hr.jobs j on 
+e.job_id=j.job_id
+
+where employee_id in
+(
+select employee_id from hr.job_history
+)
+group by job_title
+
+-----------------------------------------------------------------------------------------
+display  country name city and no of departmnet has more than 5 employees
+=>
+select * from hr.countries
+select * from hr.locations
+select c.country_name,l.city,count(department_id)
+ from hr.countries c join
+hr.locations l on
+c.country_id=l.country_id join
+hr.departments d on
+d.location_id=l.location_id
+where department_id in 
+(
+select department_id
+ from hr.employees
+group by department_id
+having count(employee_id)>5
+)
+group by c.country_name,l.city
+-----------------------------------------------------------------------------------------
+display details of manager who manages more than 5 emp
+=>
+select e.employee_id,m.first_name,m.last_name,m.manager_id
+from hr.employees e join
+hr.employees m on
+e.manager_id=m.employee_id
+where  e.manager_id in(
+select manager_id
+from hr.employees 
+group by manager_id
+having count(employee_id)>5
+)
+-----------------------------------------------------------------------------------------
+display  the department in which no employee join in last 2 year
+=>
+select * from hr. employees
+where department_id not in(
+select department_id
+from hr.employees
+where floor((sysdate-hire_date)/365)<20)
+-----------------------------------------------------------------------------------------
+display  detail of departtment in  which max salary is greater than 10k and who 
+did the job in past
+=>
+select *from hr.departments 
+where department_id in
+(
+  select department_id from hr.employees
+   where employee_id in 
+    (
+     select employee_id from hr.job_history
+     )
+  group by department_id
+  having max(salary)>10000
+
+)
+
+-----------------------------------------------------------------------------------------
+W A Q to display information of employee whose salary> average salary 
+and work in any IT department
+=> 
+  select * from hr.employees
+  where department_id in(
+  select department_id from hr.departments 
+  where Department_name like '%IT%'and salary>(select avg(salary)
+  from hr.employees)) 
+-----------------------------------------------------------------------------------------
+
+W A Q to diplay those employees whose id is any id who earn second 
+highest salary
+=>
+select * from hr.employees
+where employee_id in(select employee_id from hr.employees 
+where salary=(select max(salary)from hr.employees
+where salary<(select max(salary) from hr.employees)))   
+-----------------------------------------------------------------------------------------W A Q to display empNO fname lname salary of all employees who earn more 
+than the avg salary and who work with any department  with 'j' in their 
+name
+=>
+select * from hr.employees
+where salary>(select avg(salary)
+ from hr.employees )and department_id in(
+select department_id from hr.departments where first_name like '%J%')
+
+-----------------------------------------------------------------------------------------
+W A Q To display empid and name  all emp who work in a such department 
+where they emp working whose name contain 't'
+=>
+select * from hr.employees
+where department_id in (select department_id from hr.departments where 
+first_name like '%t%') 
+
+*****************************************************************************************
+-----------------JOIN-----------------------
+
+SELECT*FROM HR.EMPLOYEES E
+JOIN HR.DEPARTMENTS D ON
+E.DEPARTMENT_ID = D.DEPARTMENT_ID
+-----------------------------------------------------------------------------------------
+DISPLAY FIRSTNAME LASTNAME,SALARY, DEPT ID, DEPART NAME OF EMPLOYEES
+=>
+SELECT E.FIRST_NAME,E.LAST_NAME,E.SALARY,E.DEPARTMENT_ID,D.DEPARTMENT_NAME
+FROM HR.EMPLOYEES E JOIN HR.DEPARTMENTS D ON 
+E.DEPARTMENT_ID = D.DEPARTMENT_ID
+
+SELECT D.DEPARTMENT_ID,L.CITY
+FROM HR.DEPARTMENT D JOIN HR.LOCATIONS L ON
+
+
+SELECT *FROM HR.LOCATIONS
+-----------------------------------------------------------------------------------------
+DISPLAY FN,LN,DEPT NAME,CITY,STATE_PRPVINCE FOR EACH EMPLOYEE
+=>
+SELECT E.FIRST_NAME, 
+E.LAST_NAME,D.DEPARTMENT_NAME,L.CITY,L.STATE_PROVINCE
+FROM HR.EMPLOYEES E JOIN HR.DEPARTMENTS D ON
+E.DEPARTMENT_ID = D.DEPARTMENT_ID JOIN HR.LOCATIONS L ON
+D.LOCATION_ID = L.LOCATION_ID
+-----------------------------------------------------------------------------------------
+DISPLAY FN LN DN FOR ALL EMPLOYEES THOSE BEONGS TO DEPT_ID 40, 80, 90
+=>
+SELECT E.FIRST_NAME, E.LAST_NAME,D.DEPARTMENT_ID,D.DEPARTMENT_NAME
+FROM HR.EMPLOYEES E JOIN HR.DEPARTMENTS D ON
+E.DEPARTMENT_ID = D.DEPARTMENT_ID where D.DEPARTMENT_ID IN (40,80,90)
+-----------------------------------------------------------------------------------------
+DISPLAY THOSE EMPLOYYESS WHOO CONTAIN LETTER Z IN THEIR FN AND ALSO DISPLAY LN 
+DN CITY AND SP
+=>
+SELECT E.FIRST_NAME, 
+E.LAST_NAME,D.DEPARTMENT_NAME,L.CITY,L.STATE_PROVINCE
+FROM HR.EMPLOYEES E JOIN HR.DEPARTMENTS D ON
+E.DEPARTMENT_ID = D.DEPARTMENT_ID JOIN HR.LOCATIONS L ON
+D.LOCATION_ID = L.LOCATION_ID 
+WHERE FIRST_NAME LIKE '%i%' AND DEPARTMENT_NAME LIKE '%i%'
+ 
+----------------------------------------------------------------------------------------
+
+display DN AND NO. OF EMPLOYEES IN DEPT
+=>
+SELECT D.DEPARTMENT_NAME,COUNT(EMPLOYEE_ID)
+FROM HR.EMPLOYEES E JOIN HR.DEPARTMENTS D ON
+E.DEPARTMENT_ID = D.DEPARTMENT_ID
+GROUP BY D.DEPARTMENT_NAME
+-----------------------------------------------------------------------------------------
+Display employees first name last name deptid dept name for those employes who 
+have or doesn't hae any dept
+=>
+select e.first_name, e.last_name,e.salary, 
+e.department_id,d.department_name
+from hr.employees e  left join hr.departments d on
+e.department_id= d.department_id
+-----------------------------------------------------------------------------------------
+Display all the departments including those who doesn't have employees
+=>
+select e.first_name, e.last_name,e.salary, 
+e.department_id,d.department_name
+from hr.employees e  right join hr.departments d on
+e.department_id= d.department_id
+-----------------------------------------------------------------------------------------
+display dept name city and st for each dept
+=>
+select *from hr.departments
+
+select *from hr.employees
+
+select d.department_name, l.city, l.state_province
+from hr.departments d join hr.locations l on
+d.location_id = l.location_id
+-----------------------------------------------------------------------------------------display first name of employee and first name of manager
+=>
+select e.employee_id,e.first_name "employee_name", m.first_name 
+"manager_name",e.manager_id
+from hr.employees e join hr.employees m on
+e.manager_id = m.employee_id
+-----------------------------------------------------------------------------------------
+display fn of all the employees, fn of their manager including those who 
+doesn't working under any manager
+=>
+select e.employee_id,e.first_name "employee_name", m.first_name 
+"manager_name",e.manager_id
+from hr.employees e left join hr.employees m on
+e.manager_id = m.employee_id
+-----------------------------------------------------------------------------------------
+display fn and ln and salary of those emp who earn less than the emp. who earn 
+whose number is 180
+=>
+select e.first_name, e.last_name,l.salary
+from hr.employees e join hr.employees l on
+l.salary < e.salary
+where e.employee_id=180
+----------------------------------------------------------------------------------------
+display dept name, avg salary and no. of employees working in that dept who 
+have commsssion pct
+=>
+select d.department_name, round(avg(e.salary)) ,count(e.employee_id)
+from hr.employees e join hr.departments d on
+e.department_id = d.department_id 
+where e.commission_pct is not null
+group by d.department_name
+
+-----------------------------------------------------------------------------------------
+display job_title,full name, of employee and diference between max salary and sal of employee
+=>
+select j.job_title, e.first_name || ' ' || e.last_name "full_name", 
+j.max_salary - e.salary "difference", e.salary,j.max_salary
+from hr.employees e join hr.jobs j on
+e.job_id =j.job_id
+-----------------------------------------------------------------------------------------
+DISPLAY  D_NAME MANAGER_NAME AND CITY
+=>
+SELECT D.DEPARTMENT_NAME,E.FIRST_NAME,L.CITY
+FROM HR.EMPLOYEES E JOIN
+HR.DEPARTMENTS D ON
+D.MANAGER_ID=E.EMPLOYEE_ID JOIN
+HR.LOCATIONS L ON
+D.LOCATION_ID=L.LOCATION_ID
+-----------------------------------------------------------------------------------------
+W A Q TO DISPLAY COUNTRY NAME CITY AND DEPT NAME
+=>
+SELECT *FROM HR.LOCATIONS
+SELECT *FROM HR.COUNTRIES
+SELECT *FROM HR.DEPARTMENTS
+
+SELECT C.COUNTRY_NAME,L.CITY,D.DEPARTMENT_NAME
+FROM HR.DEPARTMENTS D JOIN
+HR.LOCATIONS L ON
+D.LOCATION_ID=L.LOCATION_ID JOIN
+HR.COUNTRIES C ON
+L.COUNTRY_ID=C.COUNTRY_ID
+-----------------------------------------------------------------------------------------W A Q TO DISPLAY JOB TITLE DNAME EMP LAST NAME SARTING DATE FOR ALL JOB 
+FROM 1990 TO 1995
+=>
+SELECT J.JOB_TITLE,D.DEPARTMENT_NAME,E.LAST_NAME
+FROM HR.EMPLOYEES E JOIN
+HR.DEPARTMENTS D ON
+E.DEPARTMENT_ID=D.DEPARTMENT_ID JOIN
+HR.JOBS J ON
+E.JOB_ID=J.JOB_ID
+-----------------------------------------------------------------------------------------
+W A Q TO DISPLAY  EMPLOYEE NAME IF EMPLOYEE JOIN BEFORE HIS MANAGER 
+=>
+SELECT E.EMPLOYEE_ID, E.FIRST_NAME,E.HIRE_DATE
+FROM HR.EMPLOYEES E JOIN
+HR.EMPLOYEES M ON
+M.EMPLOYEE_ID=E.MANAGER_ID 
+WHERE E.HIRE_DATE<M.HIRE_DATE
+SELECT* FROM HR.EMPLOYEES 
+-----------------------------------------------------------------------------------------
+W A Q TO DISPLAY  JOB TITLE AND AVG SALARY OF EMP
+=>
+SELECT J.JOB_TITLE,AVG(E.SALARY)FROM 
+HR.EMPLOYEES E JOIN
+HR.JOBS J ON
+E.JOB_ID= J.JOB_ID
+GROUP BY JOB_TITLE
+-----------------------------------------------------------------------------------------
+W A Q TO DISPLY D_NAME MANAGER_NAME AND SALARY OF THE MANAGER FOR ALL 
+MANAGER WHOSE EXPERIANCE IS MORE THAN 5 YEARS
+=>
+SELECT D.DEPARTMENT_NAME,E.FIRST_NAME 
+"MANAGER",E.SALARY,ROUND(months_between(SYSDATE,HIRE_DATE)/12)
+FROM HR.EMPLOYEES E JOIN
+HR.DEPARTMENTS D ON
+E.DEPARTMENT_ID=D.DEPARTMENT_ID
+WHERE months_between(SYSDATE,HIRE_DATE)/12 >20
+
+
+select * from HR.EMPLOYEES 
+select * from HR.DEPARTMENTS
+-----------------------------------------------------------------------------------------
+W A Q TO DISPLAY DNAME AVG SAL AND NO OF EMPLOYEE WITH COMMISSION_PCT 
+WITHIN THE DEPT
+=>
+SELECT D.DEPARTMENT_NAME,ROUND(AVG(E.SALARY)),COUNT(E.EMPLOYEE_ID)
+FROM HR.EMPLOYEES E JOIN
+HR.DEPARTMENTS D ON
+E.DEPARTMENT_ID=D.DEPARTMENT_ID
+WHERE COMMISSION_PCT IS NOT NULL
+GROUP BY DEPARTMENT_NAME
+-----------------------------------------------------------------------------------------
+IN WHICH YEAR DID THE MOST PEOPLE JOIN THE ORGANIZATION DISPLAY THE YAER 
+AND NO OF EMPLOYEES
+=>
+select to_char(hire_date,'yyyy'),count(employee_id)
+FROM HR.EMPLOYEES 
+group by to_char(hire_date,'yyyy')
+having 
+-----------------------------------------------------------------------------
+EMPLOY INFO WHO HAVE THE ORGANIZATION BEFORE Austin
+=>
+select * from hr.employees where hire_date <select hire_date from 
+hr.employees 
+SELECT * FROM HR.EMPLOYEES WHERE LAST_NAME='Austin'
+
+
+-----------------------------------------------------------------------------------------
+display job_id of jobs that where done by more than 3 emp for more than 
+100 days
+=>
+SELECT * FROM HR.job_history
+
+select job_id,count(employee_id)
+from hr.job_history
+where end_date-start_date>100
+group by job_id
+having count(employee_id)<3
+
+-------------------------------------------------------------------------------
+******************plSQL/Store Procedures ******************************
+
+stored proceducre=> 
+			procedure does not return any value saved frequently used queries and compiled code is stored.
+
+syntax=> create or replace procedure sdemp(a number,b number)
+		as declare
+		c number;
+		begin
+		c:=a+b;
+		dbms_output.put_lin+
+e('add='11 6);
+		end;
+
+
+execute=>exec sdemp()
+
+----------------------------------------------------------------------------
+insert=>
+	create or replace procedure student(a number,b number)
+		as declare
+			begin		
+	insert into student values(a,b);
+	end;
+	
+
+execute=>exec student(10,20)
+
+--------------------------------------------------------------------------------
+
+fuction=> must retuen value
+		used in the select statement
+
+	create or replace function fday(a number)
+	return varchar
+	as
+	declare
+	b number;			
+	begin
+	b:=a*a;
+	return 'save='11 6;
+	end;
+
+
+select fday(10) from dual
+
+---------------------------------------------------------------------------
+trigger=>		
+	create or replace trigger str after insert on stud
+				  for each row 
+			begin
+			dbms_output.put_line("after insert trigger is called")
+			end;
+
+execute=>
+insert into stud values(1,'abc','asas')
+
+
+
+for backup
+*****************new record insert********************************************
+create or replace trigger str 
+	after insert on stud
+	  for each row 
+	begin
+	dbms_output.put_line(":new.rno||''||" :new.name||''||:new.address);
+end;
+
+**********************old and new record************************************************
+create or replace trigger str 
+	after insert on stud
+	  for each row 
+	begin
+	dbms_output.put_line(":old.rno||''||" :old.name||''||:old.address);
+	dbms_output.put_line(":new.rno||''||" :new.name||''||:new.address);
+end;
+
+
+
+*****************************************************************************************
+union combine row and join combine columns 
+*****************************************************************************************---------------------------------------------------------------------------------
+create procedure SP_Delete_tblEMployees
+(@id int)
+as
+begin
+
+
+	Delete  from tblEmployee where id=@id;
+	end;
+
+	Exec SP_Delete_tblEmployees 2
+
+-----------------------------------------------------------------------------------
+
+Create procedure SP_Update_tblEmployee
+(@id int,@name varchar(50),@address varchar(50),@sal int)
+
+as
+begin
+	update tblEmployee  set id=@id,name=@name,Address=@address,Salary=@sal where id=@id;
+end
+
+
+Exec SP_Update_tblEmployee 1,'revati','Delhi',6000
+
+Exec Sp_Select_tblEmployee
+
+
+-----------------------------------------------------------------------------------------
+
+Create Procedure SP_Insert_tblEmployee(@id int,@name varchar(50),@address varchar(50),@sal int)
+as
+begin
+	insert into tblEmployee values(@id,@name,@address,@sal)
+end;
+
+exec SP_Insert_tblEmployee 6,'reena','raigad',5655 
+
+
+
+exec SP_Select_tblEmployee
+-----------------------------------------------------------------------------------------
+create procedure SP_Select_tblEmployee
+as
+begin
+Select * from tblEmployee;
+end;
+
+
+

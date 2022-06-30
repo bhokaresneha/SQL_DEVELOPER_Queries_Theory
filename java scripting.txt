@@ -1,0 +1,36 @@
+web-pages====
+1.static      2.  dynamic
+		1..server     client side
+				1.javascripts      2.jquery
+
+
+
+
+
+
+
+
+______________________________________________________
+java script is client side language 
+java script is light weight ,interprited programming language
+interprited with html.
+java scripting open and cross platform.
+adv-less server interaction.
+immediate  feedback visit visitor
+
+
+
+jva script=>
+1.js is a weekly type dynamic programing lang
+2.scripting lang for an interation and for controlling the document interaction 
+3.java script is interprited language
+4.need to write on scripting which take a time
+5.js is more lines of code
+6.faster accesing
+jquery=>
+1.fastly java script lib
+2.a framework which makes event handling animating and ajax interaction simple and faster
+3. use resources given by js to make things easier
+4.need not write much scripting wich alredy exist in jscipting
+5.fewer lines of code
+6.poor lines of code 

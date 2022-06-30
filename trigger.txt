@@ -1,0 +1,53 @@
+set serveroutput on
+
+create table demotable
+(
+id number primary key,
+name varchar(100)
+)
+
+create or replace trigger trgdemo
+before insert on demotable
+for each row
+
+begin 
+dbms_output.put_line('Before trigger is called');
+end;
+
+create or replace trigger trgdemo
+before insert on demotable
+for each row
+
+begin 
+
+dbms_output.put_line('inserted recors='||:new.id||'  '||:new.name);
+end;
+
+create or replace trigger trgdemo
+after insert on demotable
+for each row
+declare
+cnt number:=0;
+begin 
+
+select count(id) as "cnt" into cnt from demotable;
+dbms_output.put_line('total recors='||cnt);
+
+end;
+
+
+create or replace trigger trgdemo
+after delete on demotable
+for each row
+
+begin 
+
+
+dbms_output.put_line('deleted recors='||:old.id||' '||:old.name);
+
+end;
+
+delete from demotable where id=1
+insert into demotable values(7,'LMN')
+
+select * from demotable
